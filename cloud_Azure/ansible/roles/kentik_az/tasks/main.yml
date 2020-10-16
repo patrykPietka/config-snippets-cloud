@@ -1,0 +1,8 @@
+---
+# tasks file for roles/kentik_az
+
+- name: Get list of dependencies for azure_rm_modules
+  get_url:
+    url: https://raw.githubusercontent.com/ansible-collections/azure/dev/requirements-azure.txt
+    dest: "{{ '.' | realpath }}"
+  register: az_dep
