@@ -2,5 +2,11 @@
 - hosts: 127.0.0.1
   gather_facts: false
   connection: local
+  pre_tasks:
+    - name: get subscription-id
+      shell: 'az account show --query "id" | head -1'
+      register: sub
   roles:
-    - roles/kentik_az
+    - role: roles/kentik_az
+      vars:
+        kentik_az_sub: "{{sub.stdout}}"
