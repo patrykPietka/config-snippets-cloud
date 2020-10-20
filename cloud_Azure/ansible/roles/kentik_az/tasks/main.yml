@@ -7,6 +7,9 @@
     dest: "{{ '.' | realpath }}"
   register: az_dep
 
+- debug:
+    var: az_dep
+
 - name: Install dependencies for azure_rm modules
   pip:
     requirements: "{{az_dep.dest | realpath }}"
