@@ -39,3 +39,14 @@
 - debug:
     var: az_resource
   
+  # Replace later with role parameter
+- set_fact:
+    name: ansible_testing
+
+- name: Creating resource group - "{{ name }}"
+  azure_rm_resourcegroup:
+    name: "{{ name }}"
+    location: "{{ location }}"
+  register: rg
+- debug:
+    var: rg
