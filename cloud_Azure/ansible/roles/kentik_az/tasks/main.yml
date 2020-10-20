@@ -1,6 +1,9 @@
 ---
 # tasks file for roles/kentik_az
 
+- debug:
+    var: kentik_az_sub
+
 - name: Get list of dependencies for azure_rm_modules
   get_url:
     url: https://raw.githubusercontent.com/ansible-collections/azure/dev/requirements-azure.txt
@@ -63,4 +66,18 @@
     app_id: "{{ kentik_az_app_id }}"
     tenant: "{{ kentik_az_tenant }}"
 
+- fail: {}
 # Creating subnets might be not the best idea
+
+- name: Create virtual network
+  azure_rm_virtualnetwork:
+    <<: *cc
+    name: testvn001
+    address_prefixes: "10.10.0.0/16"
+
+- name: Add subnet
+  azure_rm_subnet:
+    <<: *cc
+    name: subnet001
+    address_prefix: "10.10.0.0/24"
+    virtual_network: testvn001
