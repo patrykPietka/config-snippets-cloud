@@ -50,3 +50,12 @@
   register: rg
 - debug:
     var: rg
+
+- name: Create storage account 
+  azure_rm_storageaccount:
+    <<: *cc
+    name: "{{ kentik_az_storageaccount }}"
+    account_type: Standard_LRS
+    kind: StorageV2
+
+# Creating subnets might be not the best idea
